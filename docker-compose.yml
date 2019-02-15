@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  db:
+    image: python:3.6-alpine
+    volumes:
+      - ./server:/server
+    working_dir: /server
+    command: python server.py
+
+  tests:
+    image: python:3.6-alpine
+    depends_on:
+      - db
+    volumes:
+      - ./client:/client
+    working_dir: /client
+    command: python -m unittest discover
+    env_file: .env
