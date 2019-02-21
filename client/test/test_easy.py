@@ -16,8 +16,12 @@ class Simple(unittest.TestCase):
         ]
 
     def test_normal(self):
+        self.client.collection('test')
+
         for d in self.data:
             self.client.create(d)
         
         for d in self.data:
             self.assertEqual(d, self.client.get(d['_key']))
+
+        self.client.drop_collection('test')
