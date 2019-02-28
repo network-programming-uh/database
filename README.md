@@ -44,10 +44,39 @@ El proyecto no estará listo hasta que no pasen todos los **tests**.
 
 En el archivo `.env` pueden poner todo lo referente a configuración de su servicio, por ejemplo `SERVER_URL`.
 Ejemplo para el archivo `.env`:
-```
+```sh
 $ cat .env
 SERVER_URL=db:1234
 LOGGING=debug
 ```
 
 Para acceder a estas variables pueden usar `os.getenv('SERVER_URL')`.
+
+### Variable de entorno `SERVER_URL`
+
+En particular esta variable es utilizada en los tests para instanciar la clase `Client`
+
+ ```python3
+ Client(os.getenv('SERVER_URL'))
+ ```
+La variable debe contener la dirección por la cual el servidor está escuchando. El estudiante es libre de declararla como desee.
+Ejemplo:
+```
+SERVER_URL=http://db:1234/mydb
+```
+También debe tener en cuenta que Docker le asignará al container donde está corriendo el servicio de la base de datos el nombre de dominio `db`. Por lo que si se declara de la forma
+```
+SERVER_URL=db:1234
+```
+implementaciones del tipo
+```python3
+from socket import socket
+
+class Client(object):
+    def __init__(self, server_url):
+        host, port = server_url.split(':')
+        port = int(port)
+        s = socket()
+        s.connect((host, port))
+```
+funcionarán correctamente.
