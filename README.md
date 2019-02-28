@@ -6,7 +6,7 @@
 
 Para que sea más tranquilo el proceso de desarrollo, es recomendable el uso de docker.
 Por eso el colectivo de la asignatura les recomienda, fuera de entrar en muchos detalles de la herramienta, que la utilicen.
-De cualquier manera, si alguno se interesa por el tema, puede hacercarse a cualquiera de los profesores de la asignatura.
+De cualquier manera, si alguno se interesa por el tema, puede acercarse a cualquiera de los profesores de la asignatura.
 
 No hay ninguna restricción con respecto a las tecnologías a utilizar (menos utilizar directamente otra base de datos ;-))
 
