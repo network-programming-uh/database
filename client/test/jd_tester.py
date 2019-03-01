@@ -9,7 +9,7 @@ SERVER_URL = os.getenv('SERVER_URL')
 class Simple(unittest.TestCase):
 
     def setUp(self):
-        self.client = Client(SERVER_URL)
+        # self.client = Client(SERVER_URL)
 
         self.data = [
             {'_key': 'first', 'data': '1'},
@@ -20,9 +20,9 @@ class Simple(unittest.TestCase):
     def test_collections_connection(self):
         self.client.collection('test_collection')
         # collection_exits -> boolean
-        self.assertTrue(self.client.collection_exists('test_collection'))  # returns true if collection exits
+        self.assertTrue(self.client.collection_exists('test_collection'), "Fails connection to collection") # returns true if collection exits
         self.client.drop_collection('test_collection')
-        self.assertFalse(self.client.collection_exists('test_collection'))  # return true if collections drop correctly
+        self.assertFalse(self.client.collection_exists('test_collection'), "Fails collection still exits after drop")  # return true if collections drop correctly
 
     def test_data(self, data):
         for d in data:
@@ -30,7 +30,10 @@ class Simple(unittest.TestCase):
             self.assertEqual(d['data'], self.client.get(d['data']))
 
     # Test for get, replace, update, create, delete operations
-    def test_data_operations(self):
+    def tester(self):
+
+        self.test_collections_connection()
+
         # create, get
         self.client.collection('test_collection')
         for d in self.data:
@@ -62,3 +65,10 @@ class Simple(unittest.TestCase):
             {'_key': 'second', 'data': '3'}
         ]
         self.test_data(new_data)
+
+    def test_client(self, client: Client):
+        self.client = client
+
+        self.setUp()
+
+        self.tester()
